@@ -1,0 +1,96 @@
+
+:root{
+  --primary-color: #ed4e2e;
+  --white-color: #fff;
+  --black-color: #000;
+  --text-color: #333;
+  --star-color:#Ffce3e;
+  --header-height:120px;
+  --navbar-height: 34px;
+  --header-with-search-height: cacl(var(--header-height) - var(--navbar-height));
+} /*nơi khai báo biến css */
+
+*{
+  box-sizing: inherit;  /*inherit kế thừ thể chứ nó*/
+} /* uplike thuộc tính css lên tất cả các phần tử html được link đến file css này */
+
+html{
+  font-size: 62.5%;  /*bằng 12px ->1.2rem thủ thuật hack*/
+  line-height: 1.6rem; /*bằng 16px độ cao mặc định cho những dòng chữ của wed*/ 
+  box-sizing: border-box;  /*To nhất, kế thừa cho thằng inherit ở trên */
+}
+
+/* responsive*/
+.grid{
+  width: 1400px;
+  max-width: 100%; 
+  margin: 0 auto; /* căn giưa khối này trong 1 khối khác */
+} /* hiệu năng tường tự bootstrap*/
+
+.grid__full-width{
+  width: 100%;
+} /*  không muôn sử dụng width: 1200px; thì sử dụng thằng nay */
+.btntr{
+  cursor: pointer;
+  border-radius: 50px;
+  border: none;
+  font-size: 1.4rem;
+  padding: 6px 12px;
+  background-color: var(--white-color);
+  font-weight: 450;
+}
+
+/* Animation */
+@keyframes fedeIn{
+  from{
+      opacity: 0; /* độ trong suốt */
+  }
+  to{
+      opacity: 1;
+  }
+}
+/* pagination */
+.pagination{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+}
+.pagination-item{
+  margin: 0 10px;
+}
+.pagination-item--active .pagination-item__link{
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+.pagination-item__link{
+  display: block;
+  text-decoration: none;
+  font-weight: 300;
+  font-size: 1.6rem;
+  color: #939393;
+  min-width: 40px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

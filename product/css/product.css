@@ -1,0 +1,785 @@
+.header{
+    height: var(--header-height);
+    background-image: linear-gradient(0, #fe6433, #f53e2d);  /*linear-gradient chuyển đổi màu từ dưới lên trên, mặc định là từ dưới lên. vd:to top, to right */
+}
+.header__navbar{
+    display: flex;
+    justify-content: space-between; /* cho hai thằng bay ra xa nhau*/
+}
+
+.header__navbar-list{
+    list-style: none;
+    padding-left: 0; /* mặc định của trình duyệt là 40px nên bỏ đi */
+    margin: 4px 0 0 0;
+}
+.header__navbar-item{
+    margin: 0 8px; /* trên dưới = 0, trái phải bằng 8*/
+    position: relative; /* positiontính chỉ định loại phương pháp định vị được sử dụng cho một phần tử (staic:tĩnh, relative:tương đối, cố định, absolute:tuyệt đối hoặc cố định)*/
+}
+.header__navbar-item--QR:hover .header__pr{
+    /* những css đc viết trong này sẽ uplike vào thăng header__pr trong trường hợp đc hover vào */
+    display: block; /* sẽ hiện cái mã QR lại */
+}
+.header__navbar-item--has-notify:hover .header__notify{
+    display: block;
+}
+.header__navbar-item,
+.header__navbar-item-link{
+    display: inline-block; /* dữ lại tính chất khối nhưng vẫn nằm trên cùng một hàng */
+    font-size: 1.4rem;
+    color: var(--white-color);
+    text-decoration: none;
+    font-weight: 300; /* sửa độ dày của chữ */
+}
+.header__navbar-item:hover,
+.header__navbar-item-link:hover{
+    cursor: pointer; /* đi chuột vào thành hình bàn tay */
+    color: rgba(255, 255, 255, 0.7);
+} /* đi vào thây đổi màu chữ */
+
+.header__navbar-item,
+.header__navbar-item-link
+.header__navbar-icon-link{
+    
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+}/* căn icon cho xuống bằng chữ kết nối */
+
+.header__navbar-item--strong{
+    font-weight: 400;
+}
+.header__navbar-item--sepa::after{
+    content: ""; /* content trong CSS xác định phần nội dung được chèn vào phần tử. Thuộc tính này có thể được sử dụng với các phần tử :before hoặc :after*/
+    display: block;
+    position: absolute;
+    /* tạo một đường kẻ gửi các vd: ĐY, Đnhâp*/
+    border-left: 2px solid #fb9086 ;
+    height: 14px; 
+    /* chỉnh dấu đường kẻ cho phù hợp */ 
+    right: -9px;
+    top: 20%;
+}/*::after :chọn sẽ chèn một cái gì đó sau nội dung của mỗi phần tử đã chọn.*/
+
+.header__navbar-icon-link{
+    color:  var(--white-color); /* sử dụng biến ở base.css*/
+    text-decoration: none;
+}/* đôi màu biểu tượng face, in */
+
+.header__navbar-icon{
+    font-size: 1.8rem;
+    margin: 0 4px ;
+}/* chỉnh lại icon*/
+
+/* heard qr code*/
+.header__pr{
+    width: 186px;
+    background-color: var(--white-color);
+    position: absolute; /* thụ thuộc thẻ cha gần nhất có thuộc tính position, thẻ ca đây là header__navbar-item
+    lấy thẻ cha làm gốc tạo độ*/
+    left: 0;
+    top: 150%;
+    padding: 8px;  /*cho viền trắng dày hơn */
+    border-radius: 2px;
+    display: none;  /*ẩn QR code đi*/
+    animation: fedeIn ease-in 0.5s; /* kiểu chuyển động, ease-in: chậm r nhanh, thời gian chuyển động*/
+    z-index: 1; /* ấn vào nó sẽ hiện lên đầu */
+}
+.header__pr::before{
+    position: absolute;
+    left: 0;
+    top: -16px;
+    /* bắc 1 cầu hay là 1 khoảng trắng xuống mã QR*/
+    width: 100%;
+    height: 50px; /* công thêm 20px cho thằng 100 % trên */
+    content: ""; /* content trong CSS xác định phần nội dung được chèn vào phần tử. Thuộc tính này có thể được sử dụng với các phần tử :before hoặc :after*/
+    display: block;
+ } /*:: before để chèn một cái gì đó trước nội dung. */
+
+
+.header__pr-img{
+    width: 100%;
+}
+
+.header__pr-apps{
+    display: flex;
+    justify-content: space-between; /* cánh hai cái ra xa nhau nhất */
+}
+.header__qr-link:nth-child(1){
+    margin-left: 11px;
+}/*:nth-child(1):  là lấy thằng đầu tiên*/ 
+.header__qr-link:nth-child(2){
+    margin-right: 11px;
+}/*:nth-child(2):  là lấy thằng  thứ 2*/
+.header__pr-download-img{
+    height: 15px; /* chiều cao cho các ảnh google với app*/
+}
+
+/* header thông báo: notification */
+.header__notify{
+    position: absolute;
+    top:150%;
+    right: 0px;
+    width: 404px;
+    border: 1px solid #D3D3D3;
+    background-color: var(--white-color);
+    cursor: default;
+    transform-origin: top right; /* định tâm nó xuất phát từ đâu */
+    animation: headeNotify ease-in 0.2s;
+    display: none;
+}
+.header__notify::before{
+    content: "";
+    border-width: 20px 26px;
+    border-style:  solid;
+    border-color: transparent transparent var(--white-color)   transparent;
+    position: absolute;
+    right: 5px;
+    top: -28px;
+}
+@keyframes headeNotify{
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to{
+        opacity: 1; /* hiện mờ mờ dần lên */
+        transform: scale(1);
+    }
+}
+
+.header__notify-header{
+    height: 40px;
+    background-color: var(--white-color);
+}
+.header__notify-header h3 {
+    color: #999;
+    margin: 0 0 0 12px;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 40px; /* căn giưa*/
+}
+.header__notify-list{
+    padding-left: 0;
+    list-style: none;
+}
+.header__notify-item{
+    display: flex;
+}
+.header__notify-item:hover{
+    background-color: #f7f7f7;
+}
+
+.header__notify-item--viewed{
+    background-color: rgba(237, 78, 46, 0.07);
+}
+
+.header__notify-link{
+    display: flex;
+    width: 100%;
+    padding: 12px;
+    text-decoration: none;
+    
+}
+.header__notify-img{
+    width: 48px;
+    object-fit: contain;
+}
+.header__notify-info{
+    margin-left: 12px;
+}
+.header__notify-name{
+    display: block; /* cho chữ xuống hàng */
+    font-size: 1.4rem;
+    color: var(--text-color);
+    font-weight: 400;
+    line-height: 1.8rem;/* chiều cao dòng giữa các chữ */
+}
+.header__notify-descriotion{
+    display: block;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    color: #756f6E;
+    margin-top: 4px;
+}
+.header__notify-footer{
+    display: flex; /* căn giưa*/
+}
+.header__notify-footer-btn{
+    text-decoration: none;
+    color: var(--text-color);
+    width: 100%;
+    padding: 10px 0; 
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+/* <!-- header with seearch --> */
+.header-with-search{
+    height: var(--header-with-search-height);
+    display: flex;
+    align-items: center;
+    margin: 0 8px;
+}
+.header__logo{
+    margin-top: 20px;
+    width: 200px;
+}
+.header-with-search .header__logo .header__logo-img img{
+    width: 127px;
+    height: 40px;
+}
+.header__search{
+    margin-top: 20px;
+    flex: 1;
+    height: 40px;
+    border-radius: 2px;
+    background-color: var(--white-color);
+    
+}
+
+.header__cart{
+    margin-top: 20px;
+    width: 150px;
+    text-align: center;
+}
+.header__cart-wrap{
+    display: inline-block;
+    padding: 0 12px;
+    cursor: pointer;
+    position: relative;
+
+}
+
+.header__cart-icon{
+    color: var(--white-color);
+    font-size: 2.5rem;
+}
+
+.header__cart-wrap:hover .header__cart-list{
+   display: block;
+}
+
+
+.header__cart-list{
+    position: absolute;
+    top: calc(100% + 10px);
+    right: -1px;
+    background-color: var(--white-color);
+    width: 400px;
+    border-radius: 2px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);/* cho nó nổi lên */
+    display: none;
+    animation: fedeIn ease-in 0.3s;
+    z-index: 1;
+}
+.header__cart-list::after{
+    content: ""; /* content trong CSS xác định phần nội dung được chèn vào phần tử. Thuộc tính này có thể được sử dụng với các phần tử :before hoặc :after*/
+    position: absolute;  
+    right: 1px;
+    top: -30px;
+    border-width: 20px 25px;
+    border-style: solid;
+    border-color: transparent transparent var(--white-color) transparent ; 
+}
+.header__cart-list--no-cart{
+    padding: 24px 0;
+}
+.header__cart-no-cart-img{
+    width: 60%;
+}
+.header__search-input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    padding: 0 16px;
+    border-radius: 2px;
+    outline: none; /* bỏ viền đen khi ấn vào */
+}
+.header__search-btn{
+    width: 40px;
+    margin-top: 20px;
+    background-color: var(--primary-color);
+    border: none;
+    height:42px;
+    margin-right: 3px;
+    cursor: pointer;
+    
+    
+}
+
+.header__search-btn-icon{
+    font-size: 1.4rem;
+    color: var(--white-color);
+}
+/* app__container */
+.app__container1{
+    margin-top: 20px;
+}
+.home-img__back-one{
+    margin-bottom: 20px;
+    padding-top: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 2px;
+}
+.home-item{
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.row_like{
+    background-color: var(--primary-color);
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-size: 1.3rem;
+    color: var(--white-color);
+}
+.row_name{
+    display: inline;
+    font-weight: 400;
+    font-size: 1.8rem;
+    color: var(--black-color);
+    margin-left: 4px;
+}
+.home-product-item__star1{
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-right: 20px;
+}
+.home-item__num-li{
+    font-size: 1.4rem;
+    margin-left: 15px;
+}
+.home-product-item__star-color1{
+    color:  var(--primary-color);
+    margin-top: -3.5px;
+}
+.home-item__num-other{
+    font-size: 1.4rem;
+    margin-left: 30px;
+}
+.home-item__num{
+    font-size: 1.4rem;
+}
+.home-item-p {
+position: relative;
+}
+.home-item__show{
+    color: rgb(95, 92, 92);
+}
+.home-item__num::after{
+    content: ""; /* content trong CSS xác định phần nội dung được chèn vào phần tử. Thuộc tính này có thể được sử dụng với các phần tử :before hoặc :after*/
+    display: block;
+    position: absolute;
+    /* tạo một đường kẻ gửi các vd: ĐY, Đnhâp*/
+    border-left: 2px solid #fb9086 ;
+    height: 16px; 
+    /* chỉnh dấu đường kẻ cho phù hợp */ 
+    right: -17px;
+    top: 18%;
+}
+
+.home-product-item__price1{
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.04);
+    padding: 32px 22px;
+    border-radius: 2px;
+    /* position: absolute; */
+}
+.home-product-item__price2{
+    display: flex;
+}
+.home-product-item__price3{
+  margin-top: 10px;
+}
+.home-product-item__price-old1{
+    font-size: 2rem;
+    color: #666;
+    text-decoration: line-through; /* gạch ở giứa chữ */
+}
+.home-product-item__price-new1{
+    font-size: 2.6rem;
+    color: var(--primary-color);
+    margin-left: 15px;
+    margin-top: -4px;
+}
+.home-product-item__price-like1{
+    margin-left: 15px;
+    font-size: 1.3rem;
+    color: #fff;
+    background: #ee4d2d;
+    border-radius: 2px;
+    padding: 2px 4px;
+    line-height: 1;
+    white-space: nowrap;
+    margin-top: -4px;
+
+}
+.home-product__numeroogy{
+    margin: 20px 0 20px 15px;
+    font-size: 1.4rem;
+    color: #757575;
+}
+.home-product__sale{
+    display: flex;
+}
+.home-product__Shock-Deal{
+    width: 110px;
+}
+.home-product__receiving-gifts{
+    margin-bottom: 25px;
+    padding: 1px;
+    border-radius: 2px;
+    background-color: rgba(255,87,34,.1);;
+    color: var(--primary-color);
+}
+.home-product__Transport{
+    display: flex;
+    margin-bottom: 25px;
+}
+.home-product__Transport-move{
+    width: 110px;
+}
+.home-product__Transport-address1{
+    margin-right: 30px;
+}
+.home-product__Transport-option{
+    border: none;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+.home-product__Transport-option:hover{
+    color: var(--primary-color)
+}
+.home-product__color{
+display: flex;
+margin-bottom: 25px;
+
+}
+.home-product__hue{
+    width: 110px;
+}
+.home-product__btn{
+    padding: 2px 35px;
+    margin: 0px 8px 8px 0px;
+    min-width: 50px;
+    min-height: 21px;
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    background-color: var(--white-color);
+}
+.home-product__btn:hover{
+    color: var(--primary-color);
+    border: 1px solid rgba(237, 78, 46, 1);
+    
+}
+.home-product__Amount{
+    display: flex;
+    margin-bottom: 25px; 
+
+}
+.home-product__Amount1{
+    width: 110px;
+
+}
+.home-product__Amount-btn{
+    outline: none;
+    cursor: pointer;
+    border: 0;
+    border-radius: 2px;
+    background: transparent;
+    color: rgba(0,0,0,0.6);
+    width: 32px;
+    height: 32px;
+}
+.home-product__Amount-inp{
+    width: 50px;
+    height: 32px;
+    text-align: center;
+    cursor: text;
+    border-radius: 0;
+    border: 0;
+    font-size: 1.6rem;
+}
+.home-product__container{
+font-size: 1.8rem;
+}
+.home-product__container-btn{
+    border: 1px solid var(--primary-color);
+    background:  rgba(255,87,34,.1);
+    border-radius: 2px;
+    margin: 0 15px 0 0;
+    padding: 10px 20px;
+    color: var(--primary-color);
+
+}
+.home-product__container-icon{
+    color:rgba(255,87,34,.8);
+}
+.home-product__container-btn:hover{
+    background: rgba(255,197,178,.18);
+}
+.home-product__container-btn1{
+    border: 0;
+    background:  rgba(255,87,34,1);
+    color: var(--white-color);
+    border-radius: 2px;
+    padding: 10px 20px;
+}
+.home-product__container-btn1:hover{
+    background:  rgba(255,87,34,.8);
+  
+}
+
+/* page-product__shop */
+.page-product__shop{
+    padding-top: 50px;
+    
+}
+.page-product__shop-title{
+    background-color: rgba(0, 0, 0, 0.04);
+
+}
+.page-product__shop-title1{
+    margin-left: 10px;
+    font-size: 2.4rem;
+    
+}
+.page-product__item{
+    margin-top: 25px;
+    list-style: none;
+    padding: 0;
+  
+}
+.pagination-item{
+  height: 2.4rem;
+  font-size: 1.4rem;
+}
+
+.product-ratings{
+    padding-top: 25px;
+    padding-bottom: 55px;
+}
+
+.footer-product__shop-title{
+    font-size: 2.4rem;
+    color: rgba(0, 0, 0, 0.87);
+}
+.product-rating-overview {
+    background-color: rgb(255, 251, 248);
+    min-height: 5rem;
+    border: 1px solid rgb(249, 237, 229);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 2px;
+    padding: 30px;
+    margin-top: 20px;
+}
+.product-rating-overview__briefing{
+    
+    text-align: center;
+    margin-right: 20px;
+}
+.product-rating-overview__score-wrapper{
+    color: rgb(238, 77, 45);
+   
+}
+.product-rating-overview__rating-score{
+    text-align: center;
+    font-size: 3.2rem;
+}
+.product-rating-overview__rating-score-out{
+    font-size: 2rem;
+}
+.product-rating-overview__stars-color {
+    color: rgb(238, 77, 45);
+    font-size: 1.5rem;
+    margin-left: -1px; 
+    margin-right: -1px;
+
+}
+
+.product-rating-overview__filters{
+    display: flex;
+    margin-left: 25px;
+}
+.product-rating-overview__filter--activa{
+    border: 1px solid var(--primary-color);
+    background:  rgba(255,87,34,.1);
+    border-radius: 2px;
+    margin: 8px 15px 8px 0;
+    padding: 0px 20px;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 1.7rem;
+
+}
+.product-rating-overview__filter{
+    font-size: 1.6rem;
+    cursor: pointer;
+    height: 30px;
+    line-height: -1px;
+    min-width: 6.25rem;
+    text-align: center;
+    padding: 0 7px;
+    color: rgba(0,0,0,.8);
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.09);
+    margin-right: 7px;
+    text-transform: capitalize;
+    border-radius: 2px;
+    margin-bottom: 8px;
+    margin-top: 7px; 
+}
+
+/* footer */
+.footer{
+    border-top:  4px solid var(--primary-color);
+    padding-top: 25px;
+    background-color: var(--white-color);
+}
+.footer__heading{
+    font-size: 1.4rem;
+    font-weight: 450;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+.footer__heading:hover{
+    color: #ee4d2d;
+}
+.footer-item:hover .footer-item__link{
+    color: #ee4d2d;
+}
+.footer-list{
+    padding-left: 0;
+    list-style: none;
+}
+.footer-item__link{
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #7a7878;
+    padding: 4px 0;
+    display: flex;
+    align-items: center;
+}
+.footer-item__icon{
+    font-size: 1.6rem;
+    margin-right: 8px;
+}
+.footer__download{
+    display: flex;
+}
+.footer__download-qr{
+    width: 80px;
+    height: 80px;
+    border:  2px solid rgb(227, 217, 217);
+}
+.footer__download-apps{
+    flex: 1;
+    margin-left: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.footer__download-app-img{
+    height: 20px;
+}
+.footer__bottom{
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin-top: 35px;
+}
+.footer__text{
+    margin: 0;
+    text-align: center;
+    font-size: 1.4rem;
+    color: #7a7878;
+}
+.huhu{
+
+    padding-top: 20px;
+}
+
+#toast{
+    position: fixed;
+    top: 32px;
+    right: 32px;
+    z-index: 99999999999;
+    z-index: 1;
+    min-width: 400px;
+    max-width: 400px;
+}
+.toast{
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 20px;
+    min-width: 400px;
+    max-width: 400px;
+    border-left: 4px solid;
+    box-shadow: 0 5px 8px rgba(0,0, 0, 0.08);
+    transition:  all linear 0.3s;
+}
+.toast +.toast{
+    margin-top: 20px;
+}
+@keyframes slide2{
+    from{
+        opacity: 0;
+        transform: translatex(calc(100% + 32px));
+    }
+    to{
+        opacity: 1;
+        transform: translatex(0);
+    }
+}
+@keyframes framOut{
+    to{
+        opacity: 0;
+    }
+}
+.toast__success{
+    border-color: #47d864;
+}
+.toast__more{
+    border-color: #2f86ed;
+}
+.toast__more .toast__icon{
+    color: #2f86ed;
+}
+.toast__success .toast__icon{
+    color: #47d864;
+}
+.toast__icon{
+    font-size: 24px;
+}
+.toast__icon,
+.toast_more{
+    padding: 0 14px;
+}
+.toast_body{
+    line-height: 4px;
+    flex-grow: 1;
+}
+.toast__title{
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+.toast__msg{
+    font-size: 14px;
+    color: #888;
+
+}
+.toast_more{
+    font-size: 20px;
+    color: rgba(0,0, 0, 0.3);
+    cursor: pointer;
+}
